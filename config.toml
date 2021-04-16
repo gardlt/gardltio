@@ -1,0 +1,4 @@
+baseURL = "http://gardlt.io/"
+languageCode = "en-us"
+title = "Blog | gardlt.io"
+theme = "ananke"
