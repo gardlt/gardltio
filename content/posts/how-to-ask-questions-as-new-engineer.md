@@ -1,7 +1,8 @@
 ---
 title: "How to Ask Questions as New Engineer"
 date: 2016-10-29T19:27:58-05:00
-draft: true
+tags: [soft skill, engineering, junior]
+draft: false
 ---
 
 # How to Ask Questions as a New Engineer

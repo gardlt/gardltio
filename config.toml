@@ -2,3 +2,11 @@ baseURL = "http://gardlt.io/"
 languageCode = "en-us"
 title = "Blog | gardlt.io"
 theme = "ananke"
+
+[sitemap]
+  changefreq = "monthly"
+  priority = 0.5
+  filename = "sitemap.xml"
+
+[params]
+  github = "http://github.com/gardlt"
