@@ -113,12 +113,6 @@ No Application data can be stored in the etcd.
 > For a large cluster:
 > To improve performance of large clusters, you can store Event objects in a separate dedicated etcd instance. Typically you would run one or two control plane instances per failure zone, scaling those instances vertically first and then scaling horizontally after reaching the point of falling returns to (vertical) scale.
 
-
-
-
-
-
-
 # Nodes
 
 There are two types of nodes in K8s: Master and Worker nodes.
@@ -127,15 +121,23 @@ There are two types of nodes in K8s: Master and Worker nodes.
 
 ### Container Runtime Engine (CRE)
 
-Every node in the Kubernetes(k8s) cluster need a container runtime engine. The most commonly known one is Docker. The K8s community is trying to move into a more generic approaching leveraging the **containerD** as the default CRE.
+CRE:
+* docker engine
+* crio-io
+* containerd
 
+CNI:
+* calico
+* weave
+
+On each worker node, you will need Container Runtime Engine (CRE) and a Container Network Interface (CNI).
 ### Kubelet
 
-This service that allows kubernets to talk with the nodes and containter. It will be responsible for creating containers and setting the resources.
+The kubelet will receive the request from the control plane's control manager to spin up new pods. The kubelet is the component that will interact with the CNI and CRE.
 
 ### Kube-Proxy
 
-Forwards the request in between pods on the nodes handles optimal foarding of the
+The `kube-proxy` is the service that will keep record of the running containers IP and handle the forwarding of requests within the worker nodes.
 
 
 
@@ -147,3 +149,4 @@ https://www.youtube.com/watch?v=X48VuDVv0do&ab_channel=TechWorldwithNana
 https://kubernetes.io/docs/concepts/overview/components/
 https://kubernetes.io/docs/concepts/architecture/
 https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/high-availability/
+https://kubernetes.io/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/
