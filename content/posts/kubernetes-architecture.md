@@ -113,10 +113,6 @@ No Application data can be stored in the etcd.
 > For a large cluster:
 > To improve performance of large clusters, you can store Event objects in a separate dedicated etcd instance. Typically you would run one or two control plane instances per failure zone, scaling those instances vertically first and then scaling horizontally after reaching the point of falling returns to (vertical) scale.
 
-# Nodes
-
-There are two types of nodes in K8s: Master and Worker nodes.
-
 ## Worker Nodes
 
 ### Container Runtime Engine (CRE)
