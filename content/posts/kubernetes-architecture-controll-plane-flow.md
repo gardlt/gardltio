@@ -15,6 +15,7 @@ The control plane consist of 4 core services and 1 optional.
 * etcd
 ##  Deploying a K8s Workload
 
+{{< figure src="/images/k8s/kube-scheduler.png" title="" >}}
 
 ## Controller Manager - Checking Workloads
 
