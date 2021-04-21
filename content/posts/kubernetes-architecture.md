@@ -6,7 +6,7 @@ draft: true
 
 # What is a K8s?
 
-Kubernetes is a orchestrator that scheadules services and insures that services are always running.
+Kubernetes is a orchestrator that schedules services and insures that services are always running.
 
 # Features
 
