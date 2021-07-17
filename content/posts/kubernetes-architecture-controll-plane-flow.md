@@ -1,7 +1,7 @@
 ---
 title: "Kubernetes Architecture - Control Plane Flows"
 date: 2021-04-19T20:24:56-05:00
-draft: true
+draft: false
 ---
 
 The kubernetes control plane is where the resources are maintained, scheduled, deployed.

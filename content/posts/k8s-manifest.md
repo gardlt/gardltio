@@ -1,7 +1,7 @@
 ---
 title: "K8s Manifest"
 date: 2021-04-16T22:11:13-05:00
-draft: true
+draft: false
 ---
 
 `spec` and `status`
