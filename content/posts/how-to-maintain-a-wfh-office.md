@@ -1,6 +1,7 @@
 ---
 title: "How to Maintain a WFH Office"
 date: 2021-06-20T18:47:31-05:00
+tags: [lifestyle, self-help]
 draft: false
 ---
 

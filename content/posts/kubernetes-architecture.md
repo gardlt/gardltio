@@ -1,6 +1,7 @@
 ---
 title: "Kubernetes Anatomy"
 date: 2021-04-16T21:09:11-05:00
+tags: [kubernetes, software, devops]
 draft: true
 ---
 
