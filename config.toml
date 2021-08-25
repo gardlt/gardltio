@@ -7,7 +7,7 @@ theme = "ananke"
   github = "http://github.com/gardlt"
   twitter = "https://twitter.com/gardlt"
   linkedin = "http://www.linkedin.com/in/german-rivera-de-la-torre-4b265653"
-  description = "The last theme you'll ever need. Maybe."
+  description = "The last theme you'll ever need."
 
 [taxonomies]
   category = "categories"
