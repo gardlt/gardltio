@@ -2,6 +2,7 @@
 title: "K8s Auth Config"
 date: 2021-04-18T13:04:59-05:00
 draft: true
+tags: [kubernetes, software, devops]
 ---
 
 
