@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Blog | gardlt.io</title><link>http://blog.gardlt.io/</link><description>Recent content on Blog | gardlt.io</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Sun, 20 Jun 2021 18:47:31 -0500</lastBuildDate><atom:link href="http://blog.gardlt.io/index.xml" rel="self" type="application/rss+xml"/><item><title>How to Maintain a WFH Office</title><link>http://blog.gardlt.io/posts/how-to-maintain-a-wfh-office/</link><pubDate>Sun, 20 Jun 2021 18:47:31 -0500</pubDate><guid>http://blog.gardlt.io/posts/how-to-maintain-a-wfh-office/</guid><description>&lt;p>As the era of Covid keeps going without end. Our homes have become more than just our place to live and relax.
+Our homes have also become our offices. Working from home was not a strange concept before COVID. Companies
+did not like the idea of employees working from home. People liked working from offices since the company would flip
+the cost for any materials need(monitor, chairs, coffee). However, now that the office has become part of our homes. Our lifestyles need to change as well.&lt;/p></description></item><item><title>About Me</title><link>http://blog.gardlt.io/contact/</link><pubDate>Fri, 16 Apr 2021 19:50:51 -0500</pubDate><guid>http://blog.gardlt.io/contact/</guid><description>&lt;figure>&lt;img src="http://blog.gardlt.io/images/profile.jpg">
+&lt;/figure>
+
+&lt;p>I am Alex aka gardlt, potato-engineer, potato-traveler.&lt;/p>
+&lt;p>Been a Software Engineer/DevOps for 5+ years.&lt;/p>
+&lt;p>The purpose of this blog will be do explore new things, and creating side projects for the fun of it.&lt;/p>
+&lt;h1 id="skills--tools">Skills / Tools&lt;/h1>
+&lt;h2 id="languages">Languages&lt;/h2>
+&lt;ul>
+&lt;li>Python&lt;/li>
+&lt;li>Go Lang&lt;/li>
+&lt;li>Node.js / TypeScript / JavaScript&lt;/li>
+&lt;li>Java&lt;/li>
+&lt;/ul>
+&lt;h2 id="frameworks">Frameworks&lt;/h2>
+&lt;ul>
+&lt;li>ReactJS&lt;/li>
+&lt;li>NestJS&lt;/li>
+&lt;/ul>
+&lt;h2 id="cloud">Cloud&lt;/h2>
+&lt;ul>
+&lt;li>Azure&lt;/li>
+&lt;li>OpenStack&lt;/li>
+&lt;li>Kubernetes&lt;/li>
+&lt;li>Grafana&lt;/li>
+&lt;/ul>
+&lt;h2 id="saas">SaaS&lt;/h2>
+&lt;h3 id="e-commerce">E-Commerce&lt;/h3>
+&lt;ul>
+&lt;li>Monerus&lt;/li>
+&lt;li>FreedomPay&lt;/li>
+&lt;li>BrainTree&lt;/li>
+&lt;li>MasterCard Payment Gateway Service&lt;/li>
+&lt;li>Twilio&lt;/li>
+&lt;li>Square&lt;/li>
+&lt;/ul>
+&lt;h3 id="messaging">Messaging&lt;/h3>
+&lt;ul>
+&lt;li>SendGrid&lt;/li>
+&lt;li>Twilio&lt;/li>
+&lt;/ul>
+&lt;h1 id="books">Books&lt;/h1>
+&lt;h2 id="technology">Technology&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://sre.google/sre-book/table-of-contents/">Google SRE Book&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://www.amazon.com/dp/B078Y98RG8">Phoenix Project&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://www.amazon.com/gp/product/B07QT9QR41">Unicorn Project&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://www.amazon.com/gp/product/B07B9F83WM">Accelerate: The Science of Lean Software and DevOps: Building and Scaling High Performing Technology Organizations&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://www.amazon.com/Clean-Code-Handbook-Software-Craftsmanship-ebook/dp/B001GSTOAM">Clean Code&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://www.amazon.com/gp/product/B0026OR2ZY">JavaScript: The Good Parts: The Good Parts&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://www.amazon.com/gp/product/B00JC9WG70">The DevOps Handbook: How to Create World-Class Agility, Reliability, and Security in Technology Organizations&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h2 id="self-help">Self Help&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://www.amazon.com/Now-Habit-Overcoming-Procrastination-Guilt-Free-ebook/dp/B001QNVP7M">The Now Habbit&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://www.amazon.com/Habits-Highly-Effective-People-Anniversary/dp/1642503177">The 7 Habits of Highly Effective People&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://www.amazon.com/gp/product/B01NAG34EH">Ikigai&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://www.amazon.com/gp/product/B07H1ZYWTM">Range&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>How to Ask Questions as New Engineer</title><link>http://blog.gardlt.io/posts/how-to-ask-questions-as-new-engineer/</link><pubDate>Sat, 29 Oct 2016 19:27:58 -0500</pubDate><guid>http://blog.gardlt.io/posts/how-to-ask-questions-as-new-engineer/</guid><description>&lt;h1 id="how-to-ask-questions-as-a-new-engineer">How to Ask Questions as a New Engineer&lt;/h1>
+&lt;p>As a developer, when you start off in an industry you might have a lot of question. A lot of them will not be technical, most of them will be management question. These are very common questions, but as a developer, you will have even more technical questions. For those technical questions, there needs to be processed to ask questions to your colleagues. There are THREE steps to asking a technical question.&lt;/p></description></item></channel></rss>
