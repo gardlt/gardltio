@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Blog | gardlt.io</title>
+    <link>http://localhost:1313/</link>
+    <description>Recent content on Blog | gardlt.io</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 20 Jun 2021 18:47:31 -0500</lastBuildDate>
+    <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>How to Maintain a WFH Office</title>
+      <link>http://localhost:1313/posts/how-to-maintain-a-wfh-office/</link>
+      <pubDate>Sun, 20 Jun 2021 18:47:31 -0500</pubDate>
+      <guid>http://localhost:1313/posts/how-to-maintain-a-wfh-office/</guid>
+      <description>&lt;p&gt;As the era of Covid keeps going without end. Our homes have become more than just our place to live and relax.&#xA;Our homes have also become our offices. Working from home was not a strange concept before COVID. Companies&#xA;did not like the idea of employees working from home.  People liked working from offices since the company would flip&#xA;the cost for any materials need(monitor, chairs, coffee). However, now that the office has become part of our homes. Our lifestyles need to change as well.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>About Me</title>
+      <link>http://localhost:1313/contact/</link>
+      <pubDate>Fri, 16 Apr 2021 19:50:51 -0500</pubDate>
+      <guid>http://localhost:1313/contact/</guid>
+      <description>&lt;figure&gt;&lt;img src=&#34;http://localhost:1313/images/profile.jpg&#34;&gt;&#xA;&lt;/figure&gt;&#xA;&#xA;&lt;p&gt;I am Alex aka gardlt, potato-engineer, potato-traveler.&lt;/p&gt;&#xA;&lt;p&gt;Been a Software Engineer/DevOps for 5+ years.&lt;/p&gt;&#xA;&lt;p&gt;The purpose of this blog will be do explore new things, and creating side projects for the fun of it.&lt;/p&gt;&#xA;&lt;h1 id=&#34;skills--tools&#34;&gt;Skills / Tools&lt;/h1&gt;&#xA;&lt;h2 id=&#34;languages&#34;&gt;Languages&lt;/h2&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;Python&lt;/li&gt;&#xA;&lt;li&gt;Go Lang&lt;/li&gt;&#xA;&lt;li&gt;Node.js / TypeScript / JavaScript&lt;/li&gt;&#xA;&lt;li&gt;Java&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h2 id=&#34;frameworks&#34;&gt;Frameworks&lt;/h2&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;ReactJS&lt;/li&gt;&#xA;&lt;li&gt;NestJS&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h2 id=&#34;cloud&#34;&gt;Cloud&lt;/h2&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;Azure&lt;/li&gt;&#xA;&lt;li&gt;OpenStack&lt;/li&gt;&#xA;&lt;li&gt;Kubernetes&lt;/li&gt;&#xA;&lt;li&gt;Grafana&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h2 id=&#34;saas&#34;&gt;SaaS&lt;/h2&gt;&#xA;&lt;h3 id=&#34;e-commerce&#34;&gt;E-Commerce&lt;/h3&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;Monerus&lt;/li&gt;&#xA;&lt;li&gt;FreedomPay&lt;/li&gt;&#xA;&lt;li&gt;BrainTree&lt;/li&gt;&#xA;&lt;li&gt;MasterCard Payment Gateway Service&lt;/li&gt;&#xA;&lt;li&gt;Twilio&lt;/li&gt;&#xA;&lt;li&gt;Square&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h3 id=&#34;messaging&#34;&gt;Messaging&lt;/h3&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;SendGrid&lt;/li&gt;&#xA;&lt;li&gt;Twilio&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h1 id=&#34;books&#34;&gt;Books&lt;/h1&gt;&#xA;&lt;h2 id=&#34;technology&#34;&gt;Technology&lt;/h2&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&lt;a href=&#34;https://sre.google/sre-book/table-of-contents/&#34;&gt;Google SRE Book&lt;/a&gt;&lt;/li&gt;&#xA;&lt;li&gt;&lt;a href=&#34;https://www.amazon.com/dp/B078Y98RG8&#34;&gt;Phoenix Project&lt;/a&gt;&lt;/li&gt;&#xA;&lt;li&gt;&lt;a href=&#34;https://www.amazon.com/gp/product/B07QT9QR41&#34;&gt;Unicorn Project&lt;/a&gt;&lt;/li&gt;&#xA;&lt;li&gt;&lt;a href=&#34;https://www.amazon.com/gp/product/B07B9F83WM&#34;&gt;Accelerate: The Science of Lean Software and DevOps: Building and Scaling High Performing Technology Organizations&lt;/a&gt;&lt;/li&gt;&#xA;&lt;li&gt;&lt;a href=&#34;https://www.amazon.com/Clean-Code-Handbook-Software-Craftsmanship-ebook/dp/B001GSTOAM&#34;&gt;Clean Code&lt;/a&gt;&lt;/li&gt;&#xA;&lt;li&gt;&lt;a href=&#34;https://www.amazon.com/gp/product/B0026OR2ZY&#34;&gt;JavaScript: The Good Parts: The Good Parts&lt;/a&gt;&lt;/li&gt;&#xA;&lt;li&gt;&lt;a href=&#34;https://www.amazon.com/gp/product/B00JC9WG70&#34;&gt;The DevOps Handbook: How to Create World-Class Agility, Reliability, and Security in Technology Organizations&lt;/a&gt;&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h2 id=&#34;self-help&#34;&gt;Self Help&lt;/h2&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&lt;a href=&#34;https://www.amazon.com/Now-Habit-Overcoming-Procrastination-Guilt-Free-ebook/dp/B001QNVP7M&#34;&gt;The Now Habbit&lt;/a&gt;&lt;/li&gt;&#xA;&lt;li&gt;&lt;a href=&#34;https://www.amazon.com/Habits-Highly-Effective-People-Anniversary/dp/1642503177&#34;&gt;The 7 Habits of Highly Effective People&lt;/a&gt;&lt;/li&gt;&#xA;&lt;li&gt;&lt;a href=&#34;https://www.amazon.com/gp/product/B01NAG34EH&#34;&gt;Ikigai&lt;/a&gt;&lt;/li&gt;&#xA;&lt;li&gt;&lt;a href=&#34;https://www.amazon.com/gp/product/B07H1ZYWTM&#34;&gt;Range&lt;/a&gt;&lt;/li&gt;&#xA;&lt;/ul&gt;</description>
+    </item>
+    <item>
+      <title>How to Ask Questions as New Engineer</title>
+      <link>http://localhost:1313/posts/how-to-ask-questions-as-new-engineer/</link>
+      <pubDate>Sat, 29 Oct 2016 19:27:58 -0500</pubDate>
+      <guid>http://localhost:1313/posts/how-to-ask-questions-as-new-engineer/</guid>
+      <description>&lt;h1 id=&#34;how-to-ask-questions-as-a-new-engineer&#34;&gt;How to Ask Questions as a New Engineer&lt;/h1&gt;&#xA;&lt;p&gt;As a developer, when you start off in an industry you might have a lot of question. A lot of them will not be technical, most of them will be management question. These are very common questions, but as a developer, you will have even more technical questions. For those technical questions, there needs to be processed to ask questions to your colleagues. There are THREE steps to asking a technical question.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>
