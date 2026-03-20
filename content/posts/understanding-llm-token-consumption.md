@@ -2,7 +2,7 @@
 title: "Token Consumption with GitHub Copilot Skills"
 date: 2026-03-20T13:28:39-05:00
 tags: [ai, copilot, github, cli, tokens, skills]
-draft: true
+draft: false
 ---
 
 # Why Your AI Skills Should Be CLI-First: A Token Cost Analysis

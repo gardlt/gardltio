@@ -2,7 +2,7 @@
 title: "How to Maintain a WFH Office"
 date: 2021-06-20T18:47:31-05:00
 tags: [softskill, lifestyle, self-help]
-draft: false
+draft: true
 ---
 
 As the era of Covid keeps going without end. Our homes have become more than just our place to live and relax. 
