@@ -1,4 +1,4 @@
-baseURL = "http://gardlt.io/"
+baseURL = "https://blogs.gardlt.io/"
 languageCode = "en-us"
 title = "Blog | gardlt.io"
 theme = "ananke"
