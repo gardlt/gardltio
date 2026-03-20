@@ -1,0 +1,109 @@
+<mxfile host="app.diagrams.net" modified="2021-04-21T01:10:25.882Z" agent="5.0 (Macintosh; Intel Mac OS X 11_2_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.128 Safari/537.36" etag="9QqaryKXvTQBYpKNLZbv" version="14.6.1" type="github">
+  <diagram id="2pPbZx7r5vv4LkyDsVqA" name="Page-1">
+    <mxGraphModel dx="1554" dy="912" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="LTGCYWWloz6R6lYwIclH-5" value="Control Plane" style="whiteSpace=wrap;html=1;aspect=fixed;align=left;labelPosition=center;verticalLabelPosition=top;verticalAlign=bottom;" parent="1" vertex="1">
+          <mxGeometry x="20" y="160" width="390" height="390" as="geometry" />
+        </mxCell>
+        <mxCell id="LTGCYWWloz6R6lYwIclH-6" value="Worker Node" style="whiteSpace=wrap;html=1;aspect=fixed;align=left;labelPosition=center;verticalLabelPosition=top;verticalAlign=bottom;" parent="1" vertex="1">
+          <mxGeometry x="620" y="510" width="220" height="220" as="geometry" />
+        </mxCell>
+        <mxCell id="LTGCYWWloz6R6lYwIclH-35" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.005;entryY=0.63;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" source="LTGCYWWloz6R6lYwIclH-7" target="LTGCYWWloz6R6lYwIclH-12" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="500" y="255" />
+              <mxPoint x="500" y="700" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="LTGCYWWloz6R6lYwIclH-37" value="&lt;br&gt;2. Pull the pod information" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="LTGCYWWloz6R6lYwIclH-35" vertex="1" connectable="0">
+          <mxGeometry x="-0.1981" y="-3" relative="1" as="geometry">
+            <mxPoint x="98" y="-12" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="LTGCYWWloz6R6lYwIclH-44" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;endArrow=classic;endFill=1;" parent="1" source="LTGCYWWloz6R6lYwIclH-7" target="LTGCYWWloz6R6lYwIclH-12" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="150" y="220" />
+              <mxPoint x="655" y="220" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="LTGCYWWloz6R6lYwIclH-45" value="6. Create/update resources" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="LTGCYWWloz6R6lYwIclH-44" vertex="1" connectable="0">
+          <mxGeometry x="-0.2267" y="-2" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="LTGCYWWloz6R6lYwIclH-7" value="&lt;span style=&quot;background-color: rgb(255 , 255 , 255)&quot;&gt;Kube-API&lt;/span&gt;" style="rounded=1;whiteSpace=wrap;html=1;align=left;arcSize=0;" parent="1" vertex="1">
+          <mxGeometry x="90" y="240" width="120" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="LTGCYWWloz6R6lYwIclH-42" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;endArrow=none;endFill=0;" parent="1" source="LTGCYWWloz6R6lYwIclH-8" target="LTGCYWWloz6R6lYwIclH-7" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="LTGCYWWloz6R6lYwIclH-43" value="5. Send a request to create/update pods&lt;br&gt;to their desired state" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="LTGCYWWloz6R6lYwIclH-42" vertex="1" connectable="0">
+          <mxGeometry x="0.5333" y="1" relative="1" as="geometry">
+            <mxPoint x="-19" y="16" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="LTGCYWWloz6R6lYwIclH-8" value="Scheduler" style="rounded=1;whiteSpace=wrap;html=1;align=left;" parent="1" vertex="1">
+          <mxGeometry x="90" y="330" width="120" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="LTGCYWWloz6R6lYwIclH-33" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=1;entryDx=0;entryDy=0;" parent="1" source="LTGCYWWloz6R6lYwIclH-9" target="LTGCYWWloz6R6lYwIclH-7" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="750" y="460" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="240" y="429" />
+              <mxPoint x="240" y="270" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="LTGCYWWloz6R6lYwIclH-34" value="1.Checks and watches&lt;br&gt;the states of the pods&amp;nbsp;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="LTGCYWWloz6R6lYwIclH-33" vertex="1" connectable="0">
+          <mxGeometry x="-0.0516" y="1" relative="1" as="geometry">
+            <mxPoint x="41" y="-18" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="LTGCYWWloz6R6lYwIclH-40" value="3. Checks desired state" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;endArrow=none;endFill=0;" parent="1" source="LTGCYWWloz6R6lYwIclH-9" target="LTGCYWWloz6R6lYwIclH-10" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="LTGCYWWloz6R6lYwIclH-41" value="4. Queue new request to put&lt;br&gt;the pod in the cluster" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;endArrow=none;endFill=0;" parent="1" source="LTGCYWWloz6R6lYwIclH-9" target="LTGCYWWloz6R6lYwIclH-8" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="LTGCYWWloz6R6lYwIclH-9" value="Control Manager" style="rounded=1;whiteSpace=wrap;html=1;align=left;" parent="1" vertex="1">
+          <mxGeometry x="90" y="410" width="120" height="34" as="geometry" />
+        </mxCell>
+        <mxCell id="LTGCYWWloz6R6lYwIclH-10" value="Etcd" style="rounded=1;whiteSpace=wrap;html=1;align=left;" parent="1" vertex="1">
+          <mxGeometry x="90" y="510" width="120" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="LTGCYWWloz6R6lYwIclH-11" value="" style="html=1;dashed=0;whitespace=wrap;fillColor=#2875E2;strokeColor=#ffffff;points=[[0.005,0.63,0],[0.1,0.2,0],[0.9,0.2,0],[0.5,0,0],[0.995,0.63,0],[0.72,0.99,0],[0.5,1,0],[0.28,0.99,0]];shape=mxgraph.kubernetes.icon;prIcon=etcd;align=left;" parent="1" vertex="1">
+          <mxGeometry x="20" y="492" width="50" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="LTGCYWWloz6R6lYwIclH-12" value="" style="html=1;dashed=0;whitespace=wrap;fillColor=#2875E2;strokeColor=#ffffff;points=[[0.005,0.63,0],[0.1,0.2,0],[0.9,0.2,0],[0.5,0,0],[0.995,0.63,0],[0.72,0.99,0],[0.5,1,0],[0.28,0.99,0]];shape=mxgraph.kubernetes.icon;prIcon=kubelet;align=left;" parent="1" vertex="1">
+          <mxGeometry x="630" y="670" width="50" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="LTGCYWWloz6R6lYwIclH-13" value="" style="aspect=fixed;html=1;points=[];align=center;image;fontSize=12;image=img/lib/mscae/Docker.svg;" parent="1" vertex="1">
+          <mxGeometry x="700" y="673.5" width="50" height="41" as="geometry" />
+        </mxCell>
+        <mxCell id="LTGCYWWloz6R6lYwIclH-14" value="" style="html=1;dashed=0;whitespace=wrap;fillColor=#2875E2;strokeColor=#ffffff;points=[[0.005,0.63,0],[0.1,0.2,0],[0.9,0.2,0],[0.5,0,0],[0.995,0.63,0],[0.72,0.99,0],[0.5,1,0],[0.28,0.99,0]];shape=mxgraph.kubernetes.icon;prIcon=k_proxy;align=left;" parent="1" vertex="1">
+          <mxGeometry x="770" y="520" width="50" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="LTGCYWWloz6R6lYwIclH-15" value="" style="html=1;dashed=0;whitespace=wrap;fillColor=#2875E2;strokeColor=#ffffff;points=[[0.005,0.63,0],[0.1,0.2,0],[0.9,0.2,0],[0.5,0,0],[0.995,0.63,0],[0.72,0.99,0],[0.5,1,0],[0.28,0.99,0]];shape=mxgraph.kubernetes.icon;prIcon=api;align=left;" parent="1" vertex="1">
+          <mxGeometry x="20" y="231" width="50" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="LTGCYWWloz6R6lYwIclH-16" value="" style="html=1;dashed=0;whitespace=wrap;fillColor=#2875E2;strokeColor=#ffffff;points=[[0.005,0.63,0],[0.1,0.2,0],[0.9,0.2,0],[0.5,0,0],[0.995,0.63,0],[0.72,0.99,0],[0.5,1,0],[0.28,0.99,0]];shape=mxgraph.kubernetes.icon;prIcon=node;align=left;" parent="1" vertex="1">
+          <mxGeometry x="570" y="462" width="50" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="LTGCYWWloz6R6lYwIclH-17" value="" style="html=1;dashed=0;whitespace=wrap;fillColor=#2875E2;strokeColor=#ffffff;points=[[0.005,0.63,0],[0.1,0.2,0],[0.9,0.2,0],[0.5,0,0],[0.995,0.63,0],[0.72,0.99,0],[0.5,1,0],[0.28,0.99,0]];shape=mxgraph.kubernetes.icon;prIcon=sched;align=left;" parent="1" vertex="1">
+          <mxGeometry x="20" y="321" width="50" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="LTGCYWWloz6R6lYwIclH-18" value="" style="html=1;dashed=0;whitespace=wrap;fillColor=#2875E2;strokeColor=#ffffff;points=[[0.005,0.63,0],[0.1,0.2,0],[0.9,0.2,0],[0.5,0,0],[0.995,0.63,0],[0.72,0.99,0],[0.5,1,0],[0.28,0.99,0]];shape=mxgraph.kubernetes.icon;prIcon=c_m;align=left;" parent="1" vertex="1">
+          <mxGeometry x="20" y="405" width="50" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="LTGCYWWloz6R6lYwIclH-24" value="" style="html=1;dashed=0;whitespace=wrap;fillColor=#2875E2;strokeColor=#ffffff;points=[[0.005,0.63,0],[0.1,0.2,0],[0.9,0.2,0],[0.5,0,0],[0.995,0.63,0],[0.72,0.99,0],[0.5,1,0],[0.28,0.99,0]];shape=mxgraph.kubernetes.icon;prIcon=c_c_m;align=left;" parent="1" vertex="1">
+          <mxGeometry x="20" y="430" width="50" height="48" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
