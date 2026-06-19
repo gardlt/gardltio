@@ -530,6 +530,51 @@ For a session where 80% of input tokens are repeated context (system prompts, CL
 
 ---
 
+## 10. Deployment Model: Local-Only vs Enterprise Gateway
+
+A dimension that matters enormously for teams but is easy to miss: **where does the tool actually run?** Most of this ecosystem is strictly per-developer. Only one tool has a credible path to central deployment.
+
+### Local-Only Tools
+
+- **rtk** — strictly local. Single binary, runs on each developer's machine via shell hook. No server mode, no central deployment path. Each developer installs and manages their own instance. The closest it gets to "shared" is the openclaw plugin integration, but even that is per-machine.
+- **caveman** — local by design. It's a prompt instruction injected into each agent's config directory. There's no server component whatsoever — it's essentially a SKILL.md file. Deployment means distributing the file to each developer's `~/.claude` or equivalent. No gateway, no central control.
+- **lean-ctx** — local only. Shell hook + per-machine MCP server (running on localhost:3333). No multi-user mode, no centralized deployment documented. Very early stage.
+- **cavemem / cavekit / cavegemma** — all local. SQLite-backed memory, local agent orchestration, local fine-tuned model weights. No enterprise architecture.
+
+### Can Function as Enterprise Gateway
+
+**headroom** is the only one of the three that has a credible enterprise gateway path. It has multiple deployment modes that go beyond local:
+
+- `headroom proxy --port 8787` — runs as a drop-in HTTP proxy. Any team member (or CI system) routes their LLM API traffic through it. The compression happens server-side before forwarding to Anthropic/OpenAI/Bedrock.
+- **Docker image** — `ghcr.io/chopratejas/headroom:latest` — deployable on any container infra (ECS, GKE, Kubernetes). This is the gateway deployment path.
+- **ASGI middleware** — `app.add_middleware(CompressionMiddleware)` — embeddable in a FastAPI/Starlette service, meaning the gateway can be part of an internal API layer that all developers hit.
+- **SharedContext** — compressed context passing across multi-agent workflows, implying team-level shared state.
+- **ENTERPRISE.md** — they explicitly document an enterprise offering, though the details aren't public without contacting them.
+
+The architecture allows an enterprise to deploy one headroom instance, point all developer API keys through it, and apply compression + KV cache alignment + cross-agent memory at the team level — without any per-developer installation.
+
+### Cloud / Hosted (Not Local)
+
+- **Compresr.ai** and **The Token Company** — hosted APIs. You send your text to their endpoint, they compress it, you get tokens back. Zero local install, but your data leaves your environment.
+- **OpenAI Compaction** — provider-native, runs on OpenAI's infrastructure. No control or visibility, only covers conversation history.
+
+### Deployment Summary
+
+| Tool | Local only | Self-hosted gateway | Hosted/cloud |
+|------|:----------:|:-------------------:|:------------:|
+| rtk | ✅ | — | — |
+| caveman | ✅ | — | — |
+| lean-ctx | ✅ | — | — |
+| cavemem / cavekit | ✅ | — | — |
+| headroom | ✅ | ✅ | — |
+| Compresr.ai | — | — | ✅ |
+| Token Company | — | — | ✅ |
+| OpenAI Compaction | — | — | ✅ (provider) |
+
+**Bottom line:** If you need central IT control, compliance visibility, or team-level deployment, headroom is the only open-source option in this space. rtk and caveman are fundamentally per-developer tools — you can distribute their configs via dotfiles or onboarding scripts, but there's no central enforcement or observability layer. The gap between "headroom the local tool" and "headroom the enterprise gateway" is real and appears to be their primary monetization lever given the ENTERPRISE.md file.
+
+---
+
 ## Sources
 
 - [juliusbrussee/caveman](https://github.com/juliusbrussee/caveman)
