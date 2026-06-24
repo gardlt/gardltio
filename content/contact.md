@@ -2,75 +2,96 @@
 title: "About Me"
 date: 2021-04-16T19:50:51-05:00
 draft: false
-description: Helloworld
+description: "Platform Engineer. Homelab builder. Perpetual tinkerer."
 type: page
-menu: main
+showTableOfContents: true
 ---
 
-{{< figure src="/images/profile.jpg" title="" >}}
+{{< lead >}}
+Platform Engineer building production-grade infrastructure at home — because if it's worth running once, it's worth running right.
+{{< /lead >}}
 
+## Who I Am
 
-I am Alex aka gardlt, potato-engineer, potato-traveler.
+I'm **German Rivera**, a Platform / DevOps engineer with 8+ years turning infrastructure into reliable, automated systems. By day I architect and operate distributed platforms. By night I run the same patterns on a homelab cluster just to see how far I can push it.
 
-Been a Software Engineer/DevOps for 5+ years.
+This blog is where I write about what I'm building, what broke, and what I learned from both.
 
-The purpose of this blog will be do explore new things, and creating side projects for the fun of it. 
+{{< button href="https://github.com/gardlt" target="_blank" >}}
+GitHub
+{{< /button >}}
+&nbsp;
+{{< button href="https://www.linkedin.com/in/german-rivera-de-la-torre-4b265653" target="_blank" >}}
+LinkedIn
+{{< /button >}}
 
+---
 
-# Skills / Tools
+## Certifications
 
-## Languages
+{{< badge >}}
+Microsoft Certified
+{{< /badge >}}
 
-* Python
-* Go Lang
-* Node.js / TypeScript / JavaScript
-* Java
+| Certification | Code | Issuer |
+|---------------|------|--------|
+| Azure Fundamentals | AZ-900 | Microsoft |
 
-## Frameworks
+---
 
-* ReactJS
-* NestJS
+## Skills
 
-## Cloud
+### Infrastructure & Platform
+{{< keywordList >}}
+{{< keyword icon="circle-stack" >}} Kubernetes / k3s {{< /keyword >}}
+{{< keyword icon="bolt" >}} ArgoCD / GitOps {{< /keyword >}}
+{{< keyword icon="cloud" >}} Azure {{< /keyword >}}
+{{< keyword icon="shield-check" >}} Cloudflare Zero Trust {{< /keyword >}}
+{{< keyword icon="chart-bar" >}} Grafana · Prometheus {{< /keyword >}}
+{{< keyword icon="server" >}} OpenStack {{< /keyword >}}
+{{< /keywordList >}}
 
-* Azure
-* OpenStack
-* Kubernetes
-* Grafana
+### Languages
+{{< keywordList >}}
+{{< keyword >}} Go {{< /keyword >}}
+{{< keyword >}} Python {{< /keyword >}}
+{{< keyword >}} TypeScript {{< /keyword >}}
+{{< keyword >}} Node.js {{< /keyword >}}
+{{< keyword >}} Java {{< /keyword >}}
+{{< /keywordList >}}
 
-## SaaS
+### Frameworks & Tools
+{{< keywordList >}}
+{{< keyword >}} React {{< /keyword >}}
+{{< keyword >}} NestJS {{< /keyword >}}
+{{< keyword >}} Docker {{< /keyword >}}
+{{< keyword >}} Terraform {{< /keyword >}}
+{{< /keywordList >}}
 
-### E-Commerce
-* Monerus
-* FreedomPay
-* BrainTree
-* MasterCard Payment Gateway Service 
-* Twilio
-* Square
+### AI & LLM Tooling
+{{< keywordList >}}
+{{< keyword icon="sparkles" >}} Microsoft AI Foundry {{< /keyword >}}
+{{< keyword icon="sparkles" >}} AWS Bedrock {{< /keyword >}}
+{{< keyword icon="code-bracket" >}} GitHub Copilot {{< /keyword >}}
+{{< keyword icon="code-bracket" >}} Claude Code {{< /keyword >}}
+{{< /keywordList >}}
 
-### Messaging 
+---
 
-* SendGrid
-* Twilio
+## Reading List
 
-# Books
+Books that shaped how I think about systems and engineering culture.
 
-## Technology
-* [Google SRE Book](https://sre.google/sre-book/table-of-contents/)
-* [Phoenix Project](https://www.amazon.com/dp/B078Y98RG8)
-* [Unicorn Project](https://www.amazon.com/gp/product/B07QT9QR41)
-* [Accelerate: The Science of Lean Software and DevOps: Building and Scaling High Performing Technology Organizations](https://www.amazon.com/gp/product/B07B9F83WM)
-* [Clean Code](https://www.amazon.com/Clean-Code-Handbook-Software-Craftsmanship-ebook/dp/B001GSTOAM)
-* [JavaScript: The Good Parts: The Good Parts](https://www.amazon.com/gp/product/B0026OR2ZY)
-* [The DevOps Handbook: How to Create World-Class Agility, Reliability, and Security in Technology Organizations](https://www.amazon.com/gp/product/B00JC9WG70)
+### Engineering
+- [The Phoenix Project](https://www.amazon.com/dp/B078Y98RG8) — DevOps as a story; required reading
+- [The Unicorn Project](https://www.amazon.com/gp/product/B07QT9QR41) — same universe, developer lens
+- [Accelerate](https://www.amazon.com/gp/product/B07B9F83WM) — the science behind high-performing engineering orgs
+- [Google SRE Book](https://sre.google/sre-book/table-of-contents/) — free, dense, worth it
+- [The DevOps Handbook](https://www.amazon.com/gp/product/B00JC9WG70) — practical companion to Phoenix Project
+- [Clean Code](https://www.amazon.com/Clean-Code-Handbook-Software-Craftsmanship-ebook/dp/B001GSTOAM) — craft fundamentals
 
-## Self Help
-
-* [The Now Habbit](https://www.amazon.com/Now-Habit-Overcoming-Procrastination-Guilt-Free-ebook/dp/B001QNVP7M)
-* [The 7 Habits of Highly Effective People](https://www.amazon.com/Habits-Highly-Effective-People-Anniversary/dp/1642503177)
-* [Ikigai](https://www.amazon.com/gp/product/B01NAG34EH)
-* [Range](https://www.amazon.com/gp/product/B07H1ZYWTM)
-
-
-
-
+### Self Development
+- [Range](https://www.amazon.com/gp/product/B07H1ZYWTM) — why generalists win in a specialized world
+- [Ikigai](https://www.amazon.com/gp/product/B01NAG34EH) — purpose-driven living
+- [The Now Habit](https://www.amazon.com/Now-Habit-Overcoming-Procrastination-Guilt-Free-ebook/dp/B001QNVP7M) — beating procrastination without guilt
+- [The 7 Habits of Highly Effective People](https://www.amazon.com/Habits-Highly-Effective-People-Anniversary/dp/1642503177) — timeless framework

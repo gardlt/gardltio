@@ -1,0 +1,12 @@
+languageName = "English"
+weight = 1
+
+[author]
+  name = "German Rivera"
+  headline = "Platform Engineer · Homelab Builder"
+  bio = "Building production-grade infrastructure at home. Writing about Kubernetes, GitOps, and whatever I'm currently breaking."
+  image = "img/author.jpg"
+  links = [
+    { github = "https://github.com/gardlt" },
+    { linkedin = "https://www.linkedin.com/in/german-rivera-de-la-torre-4b265653" },
+  ]

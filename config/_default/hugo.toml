@@ -1,0 +1,26 @@
+baseURL = "https://blog.gardlt.io/"
+languageCode = "en-us"
+defaultContentLanguage = "en"
+title = "gardlt.io"
+theme = "blowfish"
+
+enableRobotsTXT = true
+enableEmoji = true
+summaryLength = 0
+
+buildDrafts = false
+buildFuture = false
+
+[pagination]
+  pagerSize = 10
+
+[imaging]
+  anchor = 'Center'
+
+[taxonomies]
+  tag = "tags"
+  category = "categories"
+  series = "series"
+
+[outputs]
+  home = ["HTML", "RSS", "JSON"]

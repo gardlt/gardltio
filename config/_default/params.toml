@@ -1,0 +1,49 @@
+colorScheme = "fire"
+defaultAppearance = "dark"
+autoSwitchAppearance = true
+
+enableSearch = true
+enableCodeCopy = true
+
+mainSections = ["posts"]
+
+[homepage]
+  layout = "profile"
+  showRecent = true
+  showRecentItems = 5
+  showMoreLink = true
+  showMoreLinkDest = "/posts"
+
+[article]
+  showDate = true
+  showDateUpdated = false
+  showAuthor = true
+  showReadingTime = true
+  showTableOfContents = true
+  showTaxonomies = true
+  showWordCount = true
+  showComments = false
+  showHero = false
+
+[list]
+  showCards = true
+  groupByYear = true
+  cardView = true
+
+[header]
+  layout = "basic"
+
+[footer]
+  showCopyright = true
+  showThemeAttribution = false
+  showAppearanceSwitcher = true
+  showScrollToTop = true
+
+[author]
+  name = "German Rivera"
+  headline = "Platform Engineer · Homelab Builder"
+  bio = "Building production-grade infrastructure at home. Writing about Kubernetes, GitOps, and whatever I'm currently breaking."
+  links = [
+    { github = "https://github.com/gardlt" },
+    { linkedin = "https://www.linkedin.com/in/german-rivera-de-la-torre-4b265653" },
+  ]
