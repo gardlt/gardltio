@@ -3,6 +3,13 @@
   pageRef = "posts"
   weight = 10
 
+# Evergreen docs hub. Content is synced from the private homelab repo by its
+# blog-sync workflow — edit there, not here.
+[[main]]
+  name = "Homelab"
+  pageRef = "homelab"
+  weight = 15
+
 [[main]]
   name = "Tags"
   pageRef = "tags"
