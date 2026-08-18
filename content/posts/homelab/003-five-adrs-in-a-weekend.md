@@ -4,10 +4,18 @@ date: 2026-06-24
 draft: false
 tags: ["homelab", "kubernetes", "adr", "victoria-metrics", "cloudflare", "hindsight", "gitops"]
 series: ["homelab-ai-platform"]
+series_order: 2
 description: "How scored Architectural Decision Records resolved storage, secrets, monitoring, memory, and DNS for a home AI agent cluster — and what each decision cost."
 ---
 
-After deciding to build Hermes (see part 2), I had the agent registry. What I didn't have was the infrastructure beneath it: persistent storage for agent state and metrics, a secrets backend that works in GitOps, an observability stack that fits on NUC7 nodes, a memory system for agents, and a DNS strategy that doesn't require editing `/etc/hosts` on every client.
+{{< alert icon="circle-info" >}}
+**Update, 2026-08-16.** Two of these five decisions shipped. One stalled halfway
+and two were never started at all. There is [a scorecard at the end of this
+post](#update-2026-08-16-what-actually-happened) — the post itself is left as
+written.
+{{< /alert >}}
+
+After deciding to build Hermes, I had the agent registry. What I didn't have was the infrastructure beneath it: persistent storage for agent state and metrics, a secrets backend that works in GitOps, an observability stack that fits on NUC7 nodes, a memory system for agents, and a DNS strategy that doesn't require editing `/etc/hosts` on every client.
 
 I ran five ADRs over a weekend. The format was the same each time: define dimensions, score candidates honestly, accept the result. Here's what I decided and why.
 
@@ -118,3 +126,59 @@ The most important discipline was accepting the result when it was the uncomfort
 The ADR spec for each of these decisions lives in `specs/` in the repository. Each one has the full scoring table and rationale. Future me (and anyone else reading the repo) can see exactly why each choice was made and what the tradeoffs were.
 
 Next: the Night City Crew — a roster of seven specialized AI agents named after Cyberpunk 2077 characters, each with a defined role, a personality contract, and a set of tool integrations.
+
+## Update, 2026-08-16: what actually happened
+
+Written eight weeks after the fact, checked against the repository rather
+than against memory.
+
+Deciding is cheap. Four of these five ADRs read like the work was done, and it
+wasn't. Here is the scorecard.
+
+| ADR | Decision | Reality |
+|---|---|---|
+| 002 | Memory: Hindsight | **Shipped**, but on the NAS via docker-compose (`nas/memory/`), not in the cluster |
+| 004 | Secrets: Azure Key Vault + ESO | **Half.** The operator is installed; there are zero `ExternalSecret` resources |
+| 005 | Storage: R2 for objects, NAS for block | **Not started.** No R2, no `csi-s3`, no NFS anywhere in `k8s/` |
+| 006 | Monitoring: VictoriaMetrics | **Not started.** The string "victoria" appears nowhere in the repo |
+| 007 | DNS: Cloudflare Tunnel | **Shipped** and carrying every public hostname |
+
+Two of five landed. Both of those landed *outside* the thing they were supposed
+to be part of — Hindsight runs as containers on the NAS, and the tunnel runs in
+the cluster but outside ArgoCD, so nothing reconciles it.
+
+The individual misses are worth naming, because none of them is the failure I
+would have predicted:
+
+**Monitoring went backwards.** I chose VictoriaMetrics over kube-prometheus-stack
+after a genuine comparison, then deployed neither. What exists is Grafana with no
+datasource behind it — a dashboard wired to nothing. The ADR argued about which
+metrics backend to run and I ended up running none, which is the one outcome the
+document did not consider.
+
+**Secrets stopped at the halfway point,** which is the worst place to stop. The
+operator is deployed and healthy, so the cluster *looks* like it has secrets
+management. Every actual credential is a hand-created `Secret` that exists only in
+the running cluster and survives nothing. The decision was right and its absence is
+now invisible, which is exactly how it stayed unfinished for eight weeks.
+
+**Storage was never load-bearing enough to force the issue.** The one PVC in the
+cluster uses `local-path`, pinning that volume to a single node's disk with no
+replication — and it holds the agent's conversation history, the only state here I
+would actually miss. R2 and NFS were the right call for data that mattered; I
+never moved the data that matters onto them.
+
+So the lesson in the original post — that writing the decision down is what makes
+it real — is half right at best. Writing it down made it *reviewable*. It did not
+make it happen, and it produced a repository that describes a cluster more capable
+than the one I have. An ADR with no implementation and no expiry date is a
+liability: it reads as documentation and functions as fiction.
+
+What I would change: an ADR should record a decision **and** the commit that
+executes it, or carry a visible "accepted, not implemented" status. Four of these
+five said "Accepted" while nothing had shipped.
+
+The full accounting is in
+[Eight weeks later](/posts/homelab/006-eight-weeks-later-what-the-homelab-actually-runs/),
+and the current state of each component is in [the homelab hub](/homelab/).
+

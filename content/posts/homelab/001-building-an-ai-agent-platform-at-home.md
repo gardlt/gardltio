@@ -4,6 +4,7 @@ date: 2026-06-24
 draft: false
 tags: ["homelab", "kubernetes", "k3s", "argocd", "ai-agents", "gitops"]
 series: ["homelab-ai-platform"]
+series_order: 1
 description: "My home cluster runs k3s, ArgoCD, Cloudflare Tunnel, and a custom Go agent registry. Here's why I built it and what it looks like."
 ---
 
@@ -19,16 +20,7 @@ This is that story, from the first decision to where we landed.
 
 ---
 
-| Node | Type | CPU | RAM | GPU | Role |
-|------|------|-----|-----|-----|------|
-| **heavyarms** | Tower | Ryzen 8-core | 80 GB | RTX 1060 6 GB | Primary compute |
-| **exia** | NUC7i5 | i5 | — | — | k3s worker |
-| **kyrios** | NUC7i5 | i5 | — | — | k3s worker |
-| **dynames** | NUC7i5 | i5 | — | — | k3s worker |
-| *(2x NUC11)* | NUC11 | — | — | — | Staged / waiting |
-| UGREEN NAS | NAS | — | — | — | Persistent storage + Cloudflare tunnel |
-
-The whole thing is powered by k3s, declaratively managed through ArgoCD, and exposed via Cloudflare Zero Trust — no VPN, no port forwarding, no `/etc/hosts` hacks.
+I have a server under my desk named **heavyarms** — a tower with a Ryzen 8-core, 80 GB of RAM, and an RTX 1060 6 GB. Three Intel NUC7i5 nodes live on a shelf: **exia**, **kyrios**, and **dynames**. Two NUC11 nodes are staged and waiting. A UGREEN NAS handles persistent storage and runs Cloudflare's tunnel connector for public access. The whole thing is powered by k3s, declaratively managed through ArgoCD, and exposed at `*.apexarcology.com` via Cloudflare Zero Trust — no VPN, no port forwarding, no `/etc/hosts` hacks.
 
 I didn't build this for the flex. I built it because I wanted a real platform to run AI agents at home: agents that coordinate with each other, persist memory across sessions, and operate on actual infrastructure rather than a laptop demo environment.
 

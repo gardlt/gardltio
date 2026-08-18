@@ -4,6 +4,7 @@ date: 2026-06-24
 draft: false
 tags: ["homelab", "ai", "ollama", "n8n", "kubernetes", "automation", "fitness", "self-hosted"]
 series: ["homelab-ai-platform"]
+series_order: 4
 description: "Two weeks of rebuilding my home lab around practical AI. First project: an n8n + Ollama workflow that tracks fitness goals and sends personalized Telegram nudges."
 ---
 
