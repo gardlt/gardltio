@@ -4,22 +4,18 @@ date: 2026-06-24
 draft: false
 tags: ["homelab", "kubernetes", "k3s", "argocd", "ai-agents", "gitops"]
 series: ["homelab-ai-platform"]
-description: "My home cluster runs k3s, ArgoCD, Cloudflare Tunnel, and an agent registry built on the open-source Hermes-agent project. Here's why I built it and what it looks like."
+description: "My home cluster runs k3s, ArgoCD, Cloudflare Tunnel, and an agent registry built on the open-source Hermes-agent project. Here is how I structured the infrastructure and why."
 ---
 
-## Where this started
+## Origin
 
-The original server was a Raspberry Pi. It ran Pi-hole and not much else — "cluster" would have been a generous word for it. I added a few NUCs once the Pi ran out of headroom, then a tower for anything that needed real compute, then a UGREEN NAS to stop treating every node's local disk as permanent storage. It grew the way homelabs grow: one box at a time, each one covering for whatever the last one couldn't do.
+Like most homelabs, this started with a single Raspberry Pi running Pi-hole. When the Pi ran out of overhead, I picked up a few used NUCs. Later came a desktop tower for heavier compute, followed by a UGREEN NAS to get away from storing state on local node disks. 
 
-For AI, I started the way most people do — calling the Anthropic and OpenAI APIs directly. That worked fine right up until the invoices did. Iterating on agent behavior means a lot of calls, and token costs scale with every dumb mistake in a prompt. I wanted something more economical, which meant running models myself instead of renting someone else's.
+On the AI side, I initially relied on commercial API endpoints like Anthropic and OpenAI. That works well for simple scripts, but token costs add up quickly when testing and refining agent workflows. To keep iteration cheap, I shifted to running models locally.
 
-Then I started running local AI models. Ollama on the tower, a few inference endpoints, some scripts that called them. The problem wasn't compute — heavyarms has an RTX 1060 that handles 7B and 13B models fine. The problem was coordination. The models were isolated. They couldn't call each other, share context, or act on the cluster they lived in. Each one was a dead end.
+Setting up local inference was simple enough—Ollama on the desktop tower handles 7B and 13B models easily on an RTX 1060. However, running isolated models exposed a different problem: none of them had a clean way to coordinate, share state, or interact with the rest of the local network. 
 
-I wanted agents. Not chatbots — agents that register themselves, discover each other, maintain memory across sessions, and operate on real infrastructure. That meant building a platform, not just running models. I wanted it on Kubernetes instead of a pile of Compose files, and I wanted the NAS doing what NASes are good at — persistent storage — instead of every node hoarding its own state. Building a platform meant making real decisions about protocols, storage, secrets, observability, and discovery.
-
-This is that story, from the first decision to where we landed.
-
----
+I wanted a system where agents could self-register, discover other services, maintain persistent memory, and execute tasks across the cluster. Building that required treating it as a platform rather than a collection of Docker Compose files. That meant committing to proper storage, secret distribution, service discovery, and observability on Kubernetes.
 
 | Node | Type | CPU | RAM | GPU | Role |
 |------|------|-----|-----|-----|------|
@@ -30,64 +26,57 @@ This is that story, from the first decision to where we landed.
 | *(2x NUC11)* | NUC11 | — | — | — | Staged / waiting |
 | UGREEN NAS | NAS | — | — | — | Persistent storage |
 
-The whole thing is powered by k3s, declaratively managed through ArgoCD, and exposed via Cloudflare Zero Trust — no VPN, no port forwarding, no `/etc/hosts` hacks.
+The environment runs on k3s, configured via GitOps through ArgoCD, and exposed through Cloudflare Zero Trust.
 
-I didn't build this for the flex. I built it because I wanted a real platform to run AI agents at home: agents that coordinate with each other, persist memory across sessions, and operate on actual infrastructure rather than a laptop demo environment.
+## Kubernetes
 
-## Why Kubernetes for a homelab?
+k3s keeps control-plane resource consumption low enough to run comfortably on older NUCs. The alternative was running Docker Compose on the NAS, which works fine for basic services, but lacks automated reconciliation through ArgoCD, proper ingress routing via Traefik, or cluster-wide load balancing with MetalLB.
 
-This comes up every time I talk about this setup. The honest answer: I want the same primitives I use at work. GitOps, declarative configuration, rolling updates, health probes, secrets management that doesn't involve hardcoding tokens in a shell script. Kubernetes gives me all of that at home. k3s specifically gives me Kubernetes without the control-plane overhead — one binary, embedded etcd, runs fine on a NUC7.
+## Core Architecture
 
-The alternative is Docker Compose on the NAS, which I also do for a handful of services. But Compose doesn't give me ArgoCD reconciliation, MetalLB load balancing, or Traefik ingress with cert-manager TLS. Once you have those, every new service is four files and a commit.
+The infrastructure layers break down as follows:
 
-## The stack
+| Layer | Tool | Rationale |
+|-------|------|-----------|
+| Orchestration | k3s v1.29.4 | Lightweight footprint, embedded registry, vxlan CNI |
+| Infra as Code | Terraform | Provisioning DNS records and NAS storage configurations |
+| GitOps | ArgoCD | App-of-Apps pattern with automated git sync |
+| Load Balancer | MetalLB | Bare-metal `LoadBalancer` integration using `192.168.86.200-220` |
+| Ingress | Traefik v26.1.0 | `IngressRoute` CRD routing and TLS termination |
+| Certificates | cert-manager | Internal TLS via a self-signed cluster CA |
+| External Access | Cloudflare Tunnel | Zero Trust ingress without open inbound firewall ports |
+| Secrets | External Secrets Operator | Syncing secrets safely from Azure Key Vault into k8s |
+| Monitoring | VictoriaMetrics + Grafana | Significantly lower memory footprint than standard Prometheus stacks |
+| AI Ops | HolmesGPT | Cluster diagnostics with Discord alert routing |
+| Agent Registry | Hermes | Open-source agents ([NousResearch/hermes-agent](https://github.com/NousResearch/hermes-agent)) modified for k3s |
 
-The platform layers break down clearly:
+Internal services route through `*.home.lab`. Access to interfaces like ArgoCD, Grafana, and Jellyfin requires authentication through Cloudflare Access paired with WARP device posture checks.
 
-| Layer | Tool | Why |
-|-------|------|-----|
-| Orchestration | k3s v1.29.4 | Lightweight k8s, embedded registry, vxlan CNI |
-| Infra as Code | Terraform | DNS records and NAS-side config |
-| GitOps | ArgoCD | App-of-Apps pattern, auto-sync on commit |
-| Load Balancer | MetalLB | Bare-metal `LoadBalancer` type, IP pool `192.168.86.200-220` |
-| Ingress | Traefik v26.1.0 | `IngressRoute` CRDs, TLS termination |
-| Certificates | cert-manager | Self-signed cluster CA for internal TLS |
-| External Access | Cloudflare Tunnel | Zero Trust exposure, no inbound firewall rules |
-| Secrets | External Secrets Operator | GitOps-safe secret sync from Azure Key Vault |
-| Monitoring | VictoriaMetrics + Grafana | ~10x lighter than kube-prometheus-stack on NUC7 nodes |
-| AI Ops | HolmesGPT | AI-powered k8s investigator, Discord alert integration |
-| Agent Registry | Hermes | Open-source gRPC/REST agent discovery service ([NousResearch/hermes-agent](https://github.com/NousResearch/hermes-agent)), adapted for k3s (more on this below) |
+## Tooling via MCP Servers
 
-Everything has a URL at `*.home.lab`. ArgoCD, Grafana, HolmesGPT, stock-mcp, the NAS UI, Jellyfin, Photos — all behind Cloudflare Access with WARP device posture. No service touches the public internet without passing Zero Trust first.
+Agents interact with external systems using [MCP](https://modelcontextprotocol.io) servers deployed into the cluster:
 
-## Giving agents tools: MCP servers
+| MCP Server | Domain | Capability |
+|------------|--------|------------|
+| `stock-mcp` | Financial Data | Market pricing and ticker metadata queries |
+| `jellyfin-mcp` | Media | Library indexing and media playback management |
+| `homeassistant-mcp` | Automation | State queries and control for home sensors and switches |
+| `tavily-mcp` | Search | Real-time web search retrieval |
 
-Agents are only as useful as the tools they can reach, and tool access happens through [MCP](https://modelcontextprotocol.io) servers deployed on the cluster like everything else.
+Additional MCP servers are deployed as new integration requirements surface. I will cover the discovery mechanism and agent routing logic for these tools in a subsequent post.
 
-| MCP Server | Domain | Gives agents |
-|------------|--------|---------------|
-| `stock-mcp` | Market data | Pricing and ticker lookups |
-| `jellyfin-mcp` | Media | Query and control the Jellyfin library instead of just watching it get monitored |
-| `homeassistant-mcp` | Home automation | Query and control Home Assistant entities — lights, sensors, switches, automations |
-| `tavily-mcp` | Web search | Live web search and page retrieval for anything not already in an agent's memory |
+## Deployment Workflow
 
-That's not staying at four — more MCP servers are already planned as the agent roster grows, one per domain an agent needs to act in, so this gets its own section rather than a handful of rows buried in the stack table.
+Adding new workloads follows a standardized pattern:
 
-I'll cover the MCP layer in more depth — what's deployed, how agents discover which server has which tool, and how that ties into the Night City Crew roster — in a later post in this series.
+1. Add manifests and `kustomization.yaml` under `k8s/bootstrap/<app>/`.
+2. Register the ArgoCD `Application` in `k8s/apps/templates/<app>.yaml`.
+3. Configure the `IngressRoute` for `<app>.home.lab`.
+4. Apply the corresponding DNS CNAME record in `nas/dns/main.tf`.
 
-## Adding a service takes four steps
-
-The pattern is consistent enough that I have it memorized:
-
-1. Create `k8s/bootstrap/<app>/` with manifests and a `kustomization.yaml`
-2. Add an ArgoCD `Application` to `k8s/apps/templates/<app>.yaml`
-3. Add an `IngressRoute` pointing to `<app>.home.lab`
-4. Add the ingress rule and DNS CNAME to `nas/dns/main.tf`
-
-Commit and push. ArgoCD picks it up within 3 minutes.
+Once committed to the repository, ArgoCD syncs the changes automatically.
 
 ```yaml
-# IngressRoute pattern
 apiVersion: traefik.io/v1alpha1
 kind: IngressRoute
 metadata:
@@ -104,23 +93,3 @@ spec:
           port: 80
   tls:
     secretName: <app>-tls
-```
-
-## The part that took the most thinking: agents
-
-Everything above is solved infrastructure. MetalLB, Traefik, ArgoCD — all of these are well-documented, community-maintained, and just work if you follow the docs.
-
-Agents are not a solved problem. If you want AI agents to coordinate on a Kubernetes cluster — discovering each other, calling each other over gRPC, maintaining persistent memory, operating within a GitOps workflow — you have to make decisions. Which agent framework? Which memory system? How do secrets flow to agent pods? What does observability look like when the thing being monitored is an AI agent's behavior, not just its CPU usage?
-
-I wrote eight Architectural Decision Records (ADRs) to answer these questions. Each one scored candidates against my actual requirements rather than hype. The results were sometimes surprising:
-
-- **Agent registry**: Adopted [Hermes-agent](https://github.com/NousResearch/hermes-agent) (NousResearch, open source) rather than building one from scratch, then adapted it to be k3s-native and ArgoCD-compatible.
-- **Memory system**: Hindsight for TEMPR four-strategy retrieval — graph + temporal + semantic + keyword, self-hosted, with a real Helm chart.
-- **Monitoring**: VictoriaMetrics over kube-prometheus-stack. The NUC7 nodes have ~16 GB RAM shared across all workloads. VictoriaMetrics uses ~400 MB; kube-prometheus-stack uses 2–3 GB.
-- **DNS**: Cloudflare Tunnel, because for simplicity and support
-
-The next posts in this series go deep on each of these. Starting with Hermes, because adapting it into the platform was the most interesting part of this whole build.
-
-## What's next
-
-- **Post 2**: Hermes — adopting and adapting NousResearch's open-source agent registry, agents, and what it looks like deployed on k3s.
