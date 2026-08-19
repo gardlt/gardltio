@@ -1,7 +1,7 @@
 ---
 title: "Home Lab Evolution: Building an AI-Powered Personal Trainer Workflow"
 date: 2026-06-24
-draft: false
+draft: true
 tags: ["homelab", "ai", "ollama", "n8n", "kubernetes", "automation", "fitness", "self-hosted"]
 series: ["homelab-ai-platform"]
 description: "Two weeks of rebuilding my home lab around practical AI. First project: an n8n + Ollama workflow that tracks fitness goals and sends personalized Telegram nudges."

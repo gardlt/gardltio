@@ -1,7 +1,7 @@
 ---
 title: "The Night City Crew: Designing a Roster of Specialized AI Agents"
 date: 2026-06-24
-draft: false
+draft: true
 tags: ["homelab", "ai-agents", "kubernetes", "mcp", "cyberpunk", "agent-design"]
 series: ["homelab-ai-platform"]
 description: "Designing seven specialized AI agents named after Cyberpunk 2077 characters — each with a defined role, a personality contract, and dedicated MCP tool integrations."
@@ -85,4 +85,4 @@ The full spec is in `specs/008-night-city-crew/spec.md`. Implementation begins o
 
 ---
 
-*This is part 4 of a 4-part series on building an AI agent platform on a home Kubernetes cluster. The full repository, ADR specs, Hermes source code, and k8s manifests are at [github.com/gardlt/homelab](https://github.com/gardlt/homelab).*
+*This is part 4 of a 4-part series on building an AI agent platform on a home Kubernetes cluster.*

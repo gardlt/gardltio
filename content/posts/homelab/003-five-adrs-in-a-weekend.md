@@ -1,7 +1,7 @@
 ---
 title: "Five Infrastructure ADRs in a Weekend: Storage, Secrets, Monitoring, Memory, and DNS"
 date: 2026-06-24
-draft: false
+draft: true
 tags: ["homelab", "kubernetes", "adr", "victoria-metrics", "cloudflare", "hindsight", "gitops"]
 series: ["homelab-ai-platform"]
 description: "How scored Architectural Decision Records resolved storage, secrets, monitoring, memory, and DNS for a home AI agent cluster — and what each decision cost."
@@ -101,11 +101,11 @@ The homelab already had Azure investment (planned Azure AI Foundry and APIM work
 
 Candidates: Pi-hole, AdGuard Home, CoreDNS extension (already running in k3s), Cloudflare Tunnel.
 
-The decision was made quickly. `nas/dns/` already contained working Terraform (Cloudflare provider v4.52.7) exposing `nas.apexarcology.com`, `photos.apexarcology.com`, and `jellyfin.apexarcology.com` through a Cloudflare Tunnel connector running in UGOS Pro Docker. The pattern was proven and operational.
+The decision was made quickly. `nas/dns/` already contained working Terraform (Cloudflare provider v4.52.7) exposing `nas.home.lab`, `photos.home.lab`, and `jellyfin.home.lab` through a Cloudflare Tunnel connector running in UGOS Pro Docker. The pattern was proven and operational.
 
 Extending it to k8s services meant deploying a second `cloudflared` connector as a Kubernetes Deployment and adding `ingress_rule` blocks to the tunnel config for each new service. Same pattern, new tunnel target.
 
-**Result**: Cloudflare Tunnel. `/etc/hosts` instructions removed from README. All services at `*.apexarcology.com` route through Cloudflare Zero Trust. Access requires Cloudflare WARP device enrollment — no exposed ports on the home router.
+**Result**: Cloudflare Tunnel. `/etc/hosts` instructions removed from README. All services at `*.home.lab` route through Cloudflare Zero Trust. Access requires Cloudflare WARP device enrollment — no exposed ports on the home router.
 
 ---
 
