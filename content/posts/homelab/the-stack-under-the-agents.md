@@ -92,8 +92,7 @@ tool an agent shouldn't have isn't policy-blocked, it's architecturally absent f
 process — an agent that only runs Pirate Borg sessions cannot reach a token that reads a
 calendar, because that token isn't in its process.
 
-Written up as [ADR-0011](adr/0011-hermes-agent-hard-isolation.md). The one deliberately
-shared layer is memory — all three live agents (`delamain`, `gm_cyberpunk_rpg`,
+The one deliberately shared layer is memory — all three live agents (`delamain`, `gm_cyberpunk_rpg`,
 `gm_researcher`) use the same Hindsight backend, isolated by `bank_id`, so shared
 infrastructure doesn't mean shared recall.
 
