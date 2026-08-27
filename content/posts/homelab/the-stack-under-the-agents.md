@@ -78,6 +78,8 @@ Access policy — admin email plus WARP device posture, 12-hour session. Authent
 happens at Cloudflare's edge, before a request reaches the tunnel, so an unauthenticated
 request never touches anything running in the house.
 
+![Auth flow: Entra ID auth flow](/images/homelab/diagrams/auth-flow.svg)
+
 ## The agents themselves: hard isolation, no exceptions
 
 This is the newest layer, and the one the rest of the stack exists to support safely.
