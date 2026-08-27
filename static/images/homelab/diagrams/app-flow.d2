@@ -1,0 +1,31 @@
+# regenerate: d2 app-flow.d2 app-flow.svg
+# Application / GitOps flow — real current ArgoCD Application inventory.
+
+git: git (this repo) {shape: rectangle}
+argocd: ArgoCD {shape: rectangle}
+app-of-apps: app-of-apps\nk8s/apps/app-of-apps.yaml {shape: rectangle}
+
+git -> argocd: watched
+argocd -> app-of-apps
+app-of-apps -> templates: watches k8s/apps/templates/
+
+templates: k8s/apps/templates/ {
+  azure-workload-identity
+  cert-manager
+  external-secrets
+  hermes-agent
+  holmesgpt
+  jellyfin-mcp
+  k8s-oidc-discovery
+  metallb
+  monitoring
+  stock-mcp
+  traefik
+}
+
+out-of-band: Deployed OUTSIDE GitOps (intentional) {
+  cloudflared: cloudflared\n"kubectl apply -k" manually\n(needs tunnel-token Secret first) {style.stroke-dash: 3}
+  ollama: ollama\nAnsible role on heavyarms\nNOT a k8s workload {style.stroke-dash: 3}
+}
+
+note: "hermes-agent ≠ hermes.\nhermes-agent = Discord/dashboard app (migrated from NAS).\nThe standalone gRPC agent registry (hermes, :50051) has no Application." {shape: text}

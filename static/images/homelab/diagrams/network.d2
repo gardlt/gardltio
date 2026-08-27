@@ -1,0 +1,39 @@
+# regenerate: d2 network.d2 network.svg
+# Network topology — LAN nodes, k3s roles, MetalLB range, Cloudflare edge.
+
+internet: Internet {shape: cloud}
+
+cloudflare: Cloudflare Edge {
+  shape: cloud
+  tunnel-nas: ugreen-nas tunnel
+  tunnel-k8s: homelab-k8s tunnel
+  wan-record: "nas.<domain> A-record\n(direct WAN, bypasses tunnel)"
+}
+
+internet -> cloudflare.tunnel-nas
+internet -> cloudflare.tunnel-k8s
+internet -> cloudflare.wan-record: "96.35.6.116" {style.stroke-dash: 3}
+
+lan: LAN 192.168.86.0/24 {
+  nas: NAS idx6011-a622\n192.168.86.49\nUGOS Pro, own cloudflared {shape: rectangle}
+
+  k3s: k3s cluster {
+    heavyarms: heavyarms\n.44 — k3s server\nGPU: RTX 1060 6GB\nOllama (Ansible, NOT k8s) {shape: rectangle}
+    exia: exia\n.55 — k3s agent {shape: rectangle}
+    kyrios: kyrios\n.47 — k3s agent {shape: rectangle}
+    dynames: dynames\n.41 — k3s agent {shape: rectangle}
+    wing: wing\n.10 — pending join {shape: rectangle; style.stroke-dash: 3}
+    deathscythe: deathscythe\n.11 — pending join {shape: rectangle; style.stroke-dash: 3}
+
+    metallb: MetalLB pool\n.200–.220 {shape: rectangle}
+    traefik: Traefik VIP\n.200 {shape: rectangle}
+
+    metallb -> traefik
+    heavyarms <-> exia: flannel vxlan
+    heavyarms <-> kyrios: flannel vxlan
+    heavyarms <-> dynames: flannel vxlan
+  }
+}
+
+cloudflare.tunnel-nas -> lan.nas: cloudflared (Docker)
+cloudflare.tunnel-k8s -> lan.k3s.traefik: cloudflared pod (all nodes)

@@ -1,0 +1,32 @@
+# regenerate: d2 auth-flow.d2 auth-flow.svg
+# Auth/identity flow — Cloudflare Access + Entra ID SSO + WARP posture.
+
+user: Admin (+ allowed_emails list) {shape: person}
+
+warp: Cloudflare WARP client {shape: rectangle}
+user -> warp: device posture required on every Access policy
+
+access: Cloudflare Zero Trust Access {
+  nas-app: Access Application\n(ugreen-nas tunnel hostnames)
+  k8s-app: Access Application\n(homelab-k8s tunnel hostnames)
+  oidc-exception: k8s-oidc.<domain>\nNO Access app — Azure AD\nmust fetch JWKS unauthenticated {style.stroke-dash: 3}
+  gateway-l4: Gateway L4 policy\nallow admin -> NAS IP, else block
+}
+
+entra: Microsoft Entra ID\n(azureAD identity provider) {shape: rectangle}
+
+warp -> access.nas-app
+warp -> access.k8s-app
+access.nas-app -> entra: SSO login
+access.k8s-app -> entra: SSO login
+entra -> access.nas-app: auto_redirect_to_entra
+entra -> access.k8s-app: auto_redirect_to_entra
+
+access.nas-app -> gateway-l4: WARP posture + policy check
+access.k8s-app -> gateway-l4: WARP posture + policy check
+
+gateway-l4 -> nas: 192.168.86.49 (admin only, L4 allow)
+gateway-l4 -> k8s: traefik-helm.traefik.svc (all Access apps)
+
+internet: Internet {shape: cloud}
+internet -> access.oidc-exception: unauthenticated\n(OIDC discovery + JWKS only)
