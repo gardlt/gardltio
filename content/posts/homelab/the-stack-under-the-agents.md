@@ -1,7 +1,7 @@
 ---
 title: "The stack under the agents"
-date: 2026-08-26
-draft: false
+date: 2026-08-30
+draft: true
 tags: ["homelab", "kubernetes", "ai-agents", "security", "architecture"]
 description: "A tour of the infrastructure a homelab needs before an AI agent is trustworthy enough to hold a Discord token: bare metal, GitOps, a tunnel instead of an open port, Key Vault reached over federated identity, and agents that can't see each other's credentials."
 ---
@@ -15,10 +15,10 @@ stacked on top of each other. This is that stack, bottom to top.
 
 ## The floor: bare metal, provisioned not hand-configured
 
-Four nodes: `heavyarms` (Ryzen, 80GB RAM, RTX 1060) as the k3s server, three NUCs as
+Four nodes: `gpu-node` (Ryzen, 80GB RAM, RTX 1060) as the k3s server, three NUCs as
 agents. Ansible takes a blank box to a joined k3s node — common config, NVIDIA drivers
 and the container toolkit on the GPU node, then k3s install, in that order, because
-agents join using a token the server has to already have generated. Ollama runs directly on `heavyarms`'s host, not as a Kubernetes workload —
+agents join using a token the server has to already have generated. Ollama runs directly on `gpu-node`'s host, not as a Kubernetes workload —
 there's exactly one GPU in the building and no benefit to pretending it could be
 scheduled elsewhere.
 
@@ -40,7 +40,7 @@ exist as far as the cluster is concerned, including a fix you were sure you'd ap
 ## Edge: no open port, a tunnel instead
 
 Nothing is forwarded on the home router. Two separate Cloudflare Zero Trust Tunnels do
-the work: `ugreen-nas` fronts the NAS directly, `homelab-k8s` fronts Traefik inside the
+the work: `tunnel-nas` fronts the NAS directly, `tunnel-k8s` fronts Traefik inside the
 cluster and lets `IngressRoute`s take it from there. Splitting NAS and cluster into two
 tunnels means a compromised token on one doesn't hand over the other.
 
@@ -71,7 +71,10 @@ never talks to the apiserver.
 
 `external-secrets` and a `ClusterSecretStore` sync the vault into the cluster;
 `jellyfin-mcp` and `hermes-agent` consume it. Still open: Key Vault network ACLs, and
-the JWKS refresh path for key rotation.
+the JWKS refresh path for key rotation — right now the static file server's cache isn't
+re-fetched on a rotation event, so a signing-key rotation on either side (k3s re-issuing,
+Azure AD rotating) breaks WIF for all four Azure-dependent services at once until the
+cache is refreshed by hand.
 
 **People to services.** Every hostname behind either tunnel sits behind a Cloudflare
 Access policy — admin email plus WARP device posture, 12-hour session. Authentication
@@ -92,9 +95,16 @@ tool an agent shouldn't have isn't policy-blocked, it's architecturally absent f
 process — an agent that only runs Pirate Borg sessions cannot reach a token that reads a
 calendar, because that token isn't in its process.
 
-Every profile is named `<character>_<domain>`, Cyberpunk 2077-sourced. Eight live agents
-(`delamain`, `rogue_storyteller`, `gm_researcher`, `jackie_goals`, `hanako_career`,
-`judy_journal`, `panam_circle`, `viktor_health`) share one deliberately shared layer —
+Worth being precise about what kind of isolation this is: it's logical, enforced by
+scoping which files and tools each profile's process ever loads — not a hardened security
+boundary. All profiles still share one container filesystem. A local file read or code-exec
+bug in one profile's MCP tool could in principle reach `/opt/data/profiles/*` for every
+other profile. Separate pods per profile would close that gap; today the isolation stops
+at the process/config layer, not the kernel.
+
+Every profile follows a `<role>_<domain>` naming pattern. Eight live agents
+(`concierge`, `ttrpg_gm`, `ttrpg_lore`, `goals_habits`, `career_planning`,
+`personal_journal`, `social_circle`, `health_tracking`) share one deliberately shared layer —
 the same Hindsight backend, isolated by `bank_id` — so shared infrastructure doesn't
 mean shared recall.
 
@@ -127,7 +137,12 @@ Known and not yet closed: Key Vault network ACLs, the JWKS refresh cronjob, and 
 sharpest edge — hard-isolated agent profiles don't currently auto-start after a pod
 restart the way the container's default profile does. Each one needs `hermes profile
 use <name> && hermes gateway start` run by hand after any restart, which is a gap, not
-a design choice, and the next thing to close.
+a design choice, and the next thing to close. Left alone, that gap is silent: every
+profile stays offline until someone notices and runs the commands, so any agent with a
+time-sensitive job — a scheduled reminder, a webhook-driven trigger — just doesn't fire
+after a node reboot or pod crash. The planned fix is a `postStart` lifecycle hook (or an
+init-loop container) that walks `/opt/data/profiles/*` and starts each gateway itself, so
+recovery doesn't depend on a human being around.
 
 None of this is required for a personal LLM chatbot. It gets required the moment an
 agent is asked to hold anything real.

@@ -7,8 +7,8 @@ warp: Cloudflare WARP client {shape: rectangle}
 user -> warp: device posture required on every Access policy
 
 access: Cloudflare Zero Trust Access {
-  nas-app: Access Application\n(ugreen-nas tunnel hostnames)
-  k8s-app: Access Application\n(homelab-k8s tunnel hostnames)
+  nas-app: Access Application\n(tunnel-nas tunnel hostnames)
+  k8s-app: Access Application\n(tunnel-k8s tunnel hostnames)
   oidc-exception: k8s-oidc.<domain>\nNO Access app — Azure AD\nmust fetch JWKS unauthenticated {style.stroke-dash: 3}
   gateway-l4: Gateway L4 policy\nallow admin -> NAS IP, else block
 }

@@ -27,7 +27,7 @@ templates: k8s/apps/templates/ {
 
 out-of-band: Deployed OUTSIDE GitOps (intentional) {
   cloudflared: cloudflared\n"kubectl apply -k" manually\n(needs tunnel-token Secret first) {style.stroke-dash: 3}
-  ollama: ollama\nAnsible role on heavyarms\nNOT a k8s workload {style.stroke-dash: 3}
+  ollama: ollama\nAnsible role on gpu-node\nNOT a k8s workload {style.stroke-dash: 3}
 }
 
 note: "hermes-agent ≠ hermes.\nhermes-agent = Discord/dashboard app (migrated from NAS).\nThe standalone gRPC agent registry (hermes, :50051) has no Application." {shape: text}

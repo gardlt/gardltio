@@ -5,8 +5,8 @@ internet: Internet {shape: cloud}
 
 cloudflare: Cloudflare Edge {
   shape: cloud
-  tunnel-nas: ugreen-nas tunnel
-  tunnel-k8s: homelab-k8s tunnel
+  tunnel-nas: tunnel-nas tunnel
+  tunnel-k8s: tunnel-k8s tunnel
   wan-record: "nas.<domain> A-record\n(direct WAN, bypasses tunnel)"
 }
 
@@ -18,7 +18,7 @@ lan: LAN 10.10.0.0/24 {
   nas: NAS\n10.10.0.49\nUGOS Pro, own cloudflared {shape: rectangle}
 
   k3s: k3s cluster {
-    heavyarms: heavyarms\n.44 — k3s server\nGPU: RTX 1060 6GB\nOllama (Ansible, NOT k8s) {shape: rectangle}
+    gpu-node: gpu-node\n.44 — k3s server\nGPU: RTX 1060 6GB\nOllama (Ansible, NOT k8s) {shape: rectangle}
     exia: exia\n.55 — k3s agent {shape: rectangle}
     kyrios: kyrios\n.47 — k3s agent {shape: rectangle}
     dynames: dynames\n.41 — k3s agent {shape: rectangle}
@@ -29,9 +29,9 @@ lan: LAN 10.10.0.0/24 {
     traefik: Traefik VIP\n.200 {shape: rectangle}
 
     metallb -> traefik
-    heavyarms <-> exia: flannel vxlan
-    heavyarms <-> kyrios: flannel vxlan
-    heavyarms <-> dynames: flannel vxlan
+    gpu-node <-> exia: flannel vxlan
+    gpu-node <-> kyrios: flannel vxlan
+    gpu-node <-> dynames: flannel vxlan
   }
 }
 
