@@ -1,0 +1,81 @@
+# regenerate: d2 agent-isolation.d2 agent-isolation.svg
+# Hermes agent hard isolation — ADR-0011. Naming — ADR-0013.
+# Each agent = own Discord bot identity + own token + own MCP tool scope.
+# 3 of 8 live profiles shown (concierge, career_planning, health_tracking) — same
+# pattern repeats for ttrpg_gm, ttrpg_lore, goals_habits,
+# personal_journal, social_circle.
+
+keyvault: Azure Key Vault\nkv-hl-example\none secret per agent\nhermes-agent-<name>-discord-bot-token {shape: rectangle}
+eso: External Secrets Operator\nClusterSecretStore azure-keyvault {shape: rectangle}
+hindsight: Hindsight\nmemory service\n(NAS, docker-compose)\nshared long-term memory store {shape: rectangle; style.fill: "#e6f2ff"}
+
+pod: hermes-agent pod (one container, one HERMES_HOME) {
+  shape: rectangle
+  style.stroke-width: 2
+
+  default: default profile {
+    shape: rectangle
+    style.fill: "#eeeeee"
+    desc: No Discord token.\nNo platform enabled.\nContainer-internal:\ndashboard / admin only. {shape: text}
+  }
+
+  concierge: concierge profile {
+    shape: rectangle
+    bot: own Discord bot\n(concierge identity) {shape: rectangle}
+    tools: mcp_servers:\njellyfin, tavily {shape: rectangle}
+    mem: memory: provider hindsight {shape: rectangle; style.fill: "#e6f2ff"}
+    job: Role: finds food + picks\nsomething to watch {shape: text}
+    bot -> tools
+  }
+
+  career: career_planning profile {
+    shape: rectangle
+    bot: own Discord bot {shape: rectangle}
+    tools: mcp_servers:\n(none — memory only) {shape: rectangle}
+    mem: memory: provider hindsight {shape: rectangle; style.fill: "#e6f2ff"}
+    job: Role: career\nplanning {shape: text}
+    bot -> tools
+  }
+
+  health: health_tracking profile {
+    shape: rectangle
+    bot: own Discord bot\n(medic identity) {shape: rectangle}
+    tools: mcp_servers:\nviktor-health-mcp\n(Google Health) {shape: rectangle}
+    mem: memory: provider hindsight {shape: rectangle; style.fill: "#e6f2ff"}
+    job: Role: health tracking\n+ check-ins {shape: text}
+    bot -> tools
+  }
+
+  more: + 5 more profiles\nsame pattern, own bot/tools/bank_id {
+    shape: rectangle
+    style.stroke-dash: 3
+    style.opacity: 0.6
+  }
+}
+
+discord: Discord\n(8 separate bot applications\nprivileged intents enabled\nper application, manual step) {shape: rectangle}
+
+keyvault -> eso: ClusterSecretStore
+eso -> pod: ExternalSecret per profile ->\nfile at /opt/data/profiles/<name>/.env {style.stroke-width: 2}
+pod.health.mem -> hindsight: each profile's own bank_id\nhermes-<profile> (never crosses banks) {style.stroke-width: 2; style.stroke: "#5b9bd5"}
+pod.concierge.bot -> discord: each profile connects as\nits own bot user {style.stroke-width: 2; style.stroke: "#e07b39"; style.stroke-dash: 4}
+
+legend: |md
+  **Separation of concerns, enforced architecturally, not by policy:**
+  a profile's credentials and MCP tools are resolved from its own scope
+  and never unioned into a shared environment (Hermes' own guarantee).
+  This is logical isolation inside one shared container filesystem, not
+  a hardened security boundary — a code-exec bug in one profile's tool
+  could in principle reach another profile's files.
+
+  Adding a new agent = new Discord bot app (manual) + new Key Vault
+  secret + new ExternalSecret + new profile config/SOUL + own gateway
+  process (`hermes profile use <name> && hermes gateway start`).
+
+  All eight profiles follow a `<role>_<domain>` naming pattern
+
+  **Memory is the one shared backend**: all eight live agents point at the
+  same Hindsight service (NAS, docker-compose), but each uses its own
+  `bank_id` (`hermes-<profile>`) — recall never crosses banks, so this
+  doesn't violate the isolation model above.
+| {shape: text}
