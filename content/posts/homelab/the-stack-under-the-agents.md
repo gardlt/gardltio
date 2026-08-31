@@ -1,7 +1,7 @@
 ---
 title: "The stack under the agents"
 date: 2026-08-30
-draft: true
+draft: false
 tags: ["homelab", "kubernetes", "ai-agents", "security", "architecture"]
 description: "A tour of the infrastructure a homelab needs before an AI agent is trustworthy enough to hold a Discord token: bare metal, GitOps, a tunnel instead of an open port, Key Vault reached over federated identity, and agents that can't see each other's credentials."
 ---
