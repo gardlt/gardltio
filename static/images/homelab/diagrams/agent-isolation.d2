@@ -1,9 +1,11 @@
 # regenerate: d2 agent-isolation.d2 agent-isolation.svg
-# Hermes agent hard isolation — ADR-0011.
+# Hermes agent hard isolation — ADR-0011. Naming — ADR-0013.
 # Each agent = own Discord bot identity + own token + own MCP tool scope.
-# Dashed/grey = not built yet, illustrates the pattern for a future agent.
+# 3 of 8 live profiles shown (delamain, hanako_career, viktor_health) — same
+# pattern repeats for rogue_storyteller, gm_researcher, jackie_goals,
+# judy_journal, panam_circle.
 
-keyvault: Azure Key Vault\nkv-hl-568f36f0\none secret per agent\nhermes-agent-<name>-discord-bot-token {shape: rectangle}
+keyvault: Azure Key Vault\nkv-hl-example\none secret per agent\nhermes-agent-<name>-discord-bot-token {shape: rectangle}
 eso: External Secrets Operator\nClusterSecretStore azure-keyvault {shape: rectangle}
 hindsight: Hindsight\nmemory service\n(NAS, docker-compose)\nshared long-term memory store {shape: rectangle; style.fill: "#e6f2ff"}
 
@@ -26,66 +28,50 @@ pod: hermes-agent pod (one container, one HERMES_HOME) {
     bot -> tools
   }
 
-  cyberpunk: gm_cyberpunk_rpg profile {
+  career: hanako_career profile {
     shape: rectangle
-    bot: own Discord bot\n(GM identity) {shape: rectangle}
-    tools: mcp_servers:\n(none — narrative only) {shape: rectangle}
+    bot: own Discord bot {shape: rectangle}
+    tools: mcp_servers:\n(none — memory only) {shape: rectangle}
     mem: memory: provider hindsight {shape: rectangle; style.fill: "#e6f2ff"}
-    job: Role: cyberpunk RPG\ngame master {shape: text}
+    job: Role: career\nplanning {shape: text}
     bot -> tools
   }
 
-  researcher: gm_researcher profile {
+  health: viktor_health profile {
     shape: rectangle
-    bot: own Discord bot\n(researcher identity) {shape: rectangle}
-    tools: mcp_servers:\n(none yet — web search candidate) {shape: rectangle}
+    bot: own Discord bot\n(medic identity) {shape: rectangle}
+    tools: mcp_servers:\nviktor-health-mcp\n(Google Health) {shape: rectangle}
     mem: memory: provider hindsight {shape: rectangle; style.fill: "#e6f2ff"}
-    job: Role: sourced,\nrigorous Q&A {shape: text}
+    job: Role: health tracking\n+ check-ins {shape: text}
     bot -> tools
   }
 
-  calendar: calendar-agent profile\n(not built — illustrates the pattern) {
+  more: + 5 more profiles\nsame pattern, own bot/tools/bank_id {
     shape: rectangle
     style.stroke-dash: 3
     style.opacity: 0.6
-    bot: own Discord bot {shape: rectangle; style.stroke-dash: 3; style.opacity: 0.6}
-    tools: mcp_servers:\ngoogle-calendar (ONLY here —\nno other profile has this scope) {shape: rectangle; style.stroke-dash: 3; style.opacity: 0.6}
-    job: Role: the one agent\nallowed to read/write\nyour calendar {shape: text}
-    bot -> tools
   }
 }
 
-discord: Discord\n(4 separate bot applications\nprivileged intents enabled\nper application, manual step) {shape: rectangle}
+discord: Discord\n(8 separate bot applications\nprivileged intents enabled\nper application, manual step) {shape: rectangle}
 
 keyvault -> eso: ClusterSecretStore
-eso -> pod.delamain.bot: ExternalSecret ->\nfile at /opt/data/profiles/delamain/.env
-eso -> pod.cyberpunk.bot: file at\n.../gm_cyberpunk_rpg/.env
-eso -> pod.researcher.bot: file at\n.../gm_researcher/.env
-eso -> pod.calendar.bot: file at\n.../calendar-agent/.env {style.stroke-dash: 3; style.opacity: 0.6}
-
-pod.delamain.mem -> hindsight: bank_id\nhermes-delamain
-pod.cyberpunk.mem -> hindsight: bank_id\nhermes-gm_cyberpunk_rpg
-pod.researcher.mem -> hindsight: bank_id\nhermes-gm_researcher
-
-pod.delamain.bot -> discord: connects as\nits own bot user
-pod.cyberpunk.bot -> discord
-pod.researcher.bot -> discord
-pod.calendar.bot -> discord {style.stroke-dash: 3; style.opacity: 0.6}
+eso -> pod: ExternalSecret per profile ->\nfile at /opt/data/profiles/<name>/.env {style.stroke-width: 2}
+pod.health.mem -> hindsight: each profile's own bank_id\nhermes-<profile> (never crosses banks) {style.stroke-width: 2; style.stroke: "#5b9bd5"}
+pod.delamain.bot -> discord: each profile connects as\nits own bot user {style.stroke-width: 2; style.stroke: "#e07b39"; style.stroke-dash: 4}
 
 legend: |md
   **Separation of concerns, enforced architecturally, not by policy:**
   a profile's credentials and MCP tools are resolved from its own scope
   and never unioned into a shared environment (Hermes' own guarantee).
-  gm_cyberpunk_rpg can never reach the calendar tool because it's not
-  listed in gm_cyberpunk_rpg's config — not because something blocks it.
 
   Adding a new agent = new Discord bot app (manual) + new Key Vault
   secret + new ExternalSecret + new profile config/SOUL + own gateway
   process (`hermes profile use <name> && hermes gateway start`).
 
-  Dashed = not built yet, shown to illustrate the pattern.
+  All eight profiles are named `<character>_<domain>`, Cyberpunk 2077-sourced
 
-  **Memory is the one shared backend**: all three live agents point at the
+  **Memory is the one shared backend**: all eight live agents point at the
   same Hindsight service (NAS, docker-compose), but each uses its own
   `bank_id` (`hermes-<profile>`) — recall never crosses banks, so this
   doesn't violate the isolation model above.

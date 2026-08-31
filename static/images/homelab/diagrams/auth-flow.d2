@@ -25,7 +25,7 @@ entra -> access.k8s-app: auto_redirect_to_entra
 access.nas-app -> gateway-l4: WARP posture + policy check
 access.k8s-app -> gateway-l4: WARP posture + policy check
 
-gateway-l4 -> nas: 192.168.86.49 (admin only, L4 allow)
+gateway-l4 -> nas: 10.10.0.49 (admin only, L4 allow)
 gateway-l4 -> k8s: traefik-helm.traefik.svc (all Access apps)
 
 internet: Internet {shape: cloud}

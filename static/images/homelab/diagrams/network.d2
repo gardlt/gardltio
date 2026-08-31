@@ -12,10 +12,10 @@ cloudflare: Cloudflare Edge {
 
 internet -> cloudflare.tunnel-nas
 internet -> cloudflare.tunnel-k8s
-internet -> cloudflare.wan-record: "96.35.6.116" {style.stroke-dash: 3}
+internet -> cloudflare.wan-record: "198.51.100.10" {style.stroke-dash: 3}
 
-lan: LAN 192.168.86.0/24 {
-  nas: NAS idx6011-a622\n192.168.86.49\nUGOS Pro, own cloudflared {shape: rectangle}
+lan: LAN 10.10.0.0/24 {
+  nas: NAS\n10.10.0.49\nUGOS Pro, own cloudflared {shape: rectangle}
 
   k3s: k3s cluster {
     heavyarms: heavyarms\n.44 — k3s server\nGPU: RTX 1060 6GB\nOllama (Ansible, NOT k8s) {shape: rectangle}

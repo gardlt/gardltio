@@ -92,9 +92,11 @@ tool an agent shouldn't have isn't policy-blocked, it's architecturally absent f
 process — an agent that only runs Pirate Borg sessions cannot reach a token that reads a
 calendar, because that token isn't in its process.
 
-The one deliberately shared layer is memory — all three live agents (`delamain`, `gm_cyberpunk_rpg`,
-`gm_researcher`) use the same Hindsight backend, isolated by `bank_id`, so shared
-infrastructure doesn't mean shared recall.
+Every profile is named `<character>_<domain>`, Cyberpunk 2077-sourced. Eight live agents
+(`delamain`, `rogue_storyteller`, `gm_researcher`, `jackie_goals`, `hanako_career`,
+`judy_journal`, `panam_circle`, `viktor_health`) share one deliberately shared layer —
+the same Hindsight backend, isolated by `bank_id` — so shared infrastructure doesn't
+mean shared recall.
 
 ![Agent isolation: per-profile Discord identity, per-profile MCP tool scope, shared Hindsight memory split by bank_id](/images/homelab/diagrams/agent-isolation.svg)
 
@@ -106,18 +108,20 @@ separately needs privileged intents enabled before it can connect.
 
 Above the identity layer sit the MCP servers themselves — small, single-purpose Go
 services, each independently built and deployed: `jellyfin-mcp` wraps the Jellyfin API,
-`stock-mcp` does market-data lookups, and HolmesGPT (a third-party Helm chart, not
-hand-written manifests) does cluster investigation. Same shape every time — Go source
-and manifests in their own directory, an Application template, its own CI workflow gated
-on changes to its own path.
+`stock-mcp` does market-data lookups (Finnhub for quotes, Yahoo for history), `dice-mcp`
+rolls dice for tabletop sessions, `viktor-health-mcp` wraps Google Health, and HolmesGPT
+(a third-party Helm chart, not hand-written manifests) does cluster investigation. Same
+shape every time — Go source and manifests in their own directory, an Application
+template, its own CI workflow gated on changes to its own path.
 
 ![GitOps application flow: git to ArgoCD to the app-of-apps to per-component Application templates, with cloudflared and Ollama deployed out of band](/images/homelab/diagrams/app-flow.svg)
 
 ## Where it stands
 
 Live and holding: four provisioned nodes, GitOps as the only write path to the cluster,
-two tunnels with zero open inbound ports, WIF-backed Key Vault secrets for two services,
-three hard-isolated agents each with their own Discord identity and memory bank.
+two tunnels with zero open inbound ports, WIF-backed Key Vault secrets for four services
+(`hermes-agent`, `jellyfin-mcp`, `stock-mcp`, `viktor-health-mcp`), eight hard-isolated
+agents each with their own Discord identity and memory bank.
 
 Known and not yet closed: Key Vault network ACLs, the JWKS refresh cronjob, and — the
 sharpest edge — hard-isolated agent profiles don't currently auto-start after a pod
